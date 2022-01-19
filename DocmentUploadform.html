@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<link rel="icon" href="/favicon.ico?v=2" type="image/x-icon" />
+<meta charset="utf-8" />
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <form id="UploadForm" class="section" Method="post" enctype=multipart/form-data >
+        <div>
+            <h4>
+                <label for="Date">Date of document</label>
+        
+            </h4>
+            <input type="date" id="uploadDate" name="DocumentDate"   autocapitalize="none" autocorrect="off" form="UploadForm">
+            <span class="icon-checkmark hidden" style="display: none;"></span>
+            <span class="icon-error hidden"></span>
+            <input type="hidden" id="Datescope" value="v2-federated">
+        </div>
+
+        <div>
+            <h4>
+                <label for="Source">Source of document</label>
+            </h4>
+        
+            <select id="selectSource" form="UploadForm">
+                <option>Choose a source</option>
+                <script>
+                // Connect whatever array to Sources
+                    var Sources = new Array("hello", "my", "name", "is", "5");
+
+
+                // Get dropdown element from DOM
+                    var dropdown = document.getElementById("selectSource");
+
+                // Loop through the array
+                    for (var i = 0; i < Sources.length; ++i) {
+                    // Append the element to the end of Array list
+                        dropdown[dropdown.length] = new Option(Sources[i], Sources[i]);
+                    }
+                </script>
+            </select>
+        </div>
+            
+            <div>
+                <h4>
+                    <label for="uploadButton">Upload document</label>
+                </h4>
+                <input id="uploadInput" type="file" name="myFiles" accept="image/png, image/jpeg, application/pdf" form ="UploadForm" >
+                File size: <span id="fileSize">0</span>
+            </div>
+            <br>
+            <br>
+            <div>
+                <button type="button" id="uploadSubmit">Send Document</button>
+                
+
+                </div>
+        
+        
+        <script>
+            //var input = document.getElementById("uploadSubmit");
+             
+                $(document).ready(function () {
+                    $("#uploadSubmit").click(function () {
+                        result = new Array();
+                        result["date"] = document.getElementById("uploadDate").value;
+                        result["option"] = document.getElementById("selectSource").value;
+                        result["file"] = document.getElementById("uploadInput").value
+                        console.log(result["date"]);
+                        console.log(result["option"]);
+                        console.log(result["file"]);
+                    });
+                });
+ 
+            function updateSize() {
+                let nBytes = 0,
+                    oFiles = this.files,
+                    nFiles = oFiles.length;
+                for (let nFileId = 0; nFileId < nFiles; nFileId++) {
+                    nBytes += oFiles[nFileId].size;
+                }
+                let sOutput = nBytes + " bytes";
+                document.getElementById("fileSize").innerHTML = sOutput;
+            }
+
+            document.getElementById("uploadInput").addEventListener("change", updateSize, false);
+        </script>
+    </form>
+        
+</body>
+</html>
